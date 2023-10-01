@@ -1,4 +1,4 @@
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
@@ -10,7 +10,7 @@ load_dotenv()
 
 
 def generate_pet_name(animal_type, pet_color):
-    llm = OpenAI(temperature=0.7)
+    llm = ChatOpenAI(model_name="gpt-4-0613", temperature=0)
     prompt_template_name = PromptTemplate(
         input_variables=['animal_type', 'pet_color'],
         template="""What is a cool name for a pet of type {animal_type} and
@@ -23,7 +23,7 @@ def generate_pet_name(animal_type, pet_color):
 
 
 def langchain_agent():
-    llm = OpenAI(temperature=0.5)
+    llm = ChatOpenAI(model_name="gpt-4-0613", temperature=0)
     tools = load_tools(["wikipedia", "llm-math"], llm=llm)
     agent = initialize_agent(
         tools, llm, AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
